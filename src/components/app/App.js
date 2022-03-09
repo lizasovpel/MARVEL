@@ -3,35 +3,41 @@ import AppHeader from "../appHeader/AppHeader";
 import RandomChar from "../randomChar/RandomChar";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
-import PropTypes from "prop-types";
+import ComicsList from "../comicsList/ComicsList";
+import AppBanner from "../appBanner/AppBanner";
+import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
 import decoration from '../../resources/img/vision.png';
 
 const App = () => {
-
-    const [selectedChar, setChar] = useState(null)
     
+    const [selectedChar, setChar] = useState(null);
+
     const onCharSelected = (id) => {
-        setChar(id)
+        setChar(id);
     }
 
     return (
         <div className="app">
             <AppHeader/>
             <main>
-                <RandomChar/>
+                {/* <ErrorBoundary>
+                    <RandomChar/>
+                </ErrorBoundary> */}
                 <div className="char__content">
-                    <CharList onCharSelected={onCharSelected}/>
-                    <CharInfo charId={selectedChar}/>
+                    <ErrorBoundary>
+                        <CharList onCharSelected={onCharSelected}/>
+                    </ErrorBoundary>
+                    <ErrorBoundary>
+                        <CharInfo charId={selectedChar}/>
+                    </ErrorBoundary>
+
                 </div>
+                {/* <ComicsList/> */}
                 <img className="bg-decoration" src={decoration} alt="vision"/>
             </main>
         </div>
     )
-}
-
-CharList.propTypes ={
-    onCharSelected: PropTypes.func
 }
 
 export default App;
